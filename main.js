@@ -1,149 +1,110 @@
-let opcionBebida;
-let opcionTrago;
-let presupuesto;
-let saldoSuficiente;
+/* let titulo = document.createElement("h1");
+titulo.innerText = "Esto es un titulo";
+document.body.append(titulo); */
+/* `` */
 
-function comprobarPresupuesto() {
+const listaDeTragos = [
+    {
+        id: 1,
+        nombre: "té verde helado al estilo moruno",
+        costo: 100,
+        conAlcohol: false
+    },
+    {
+        id: 2,
+        nombre: "limonada de frambuesa",
+        costo: 150,
+        conAlcohol: false
+    },
+    {
+        id: 3,
+        nombre: "smoothie de mango, piña y lima",
+        costo: 200,
+        conAlcohol: false
+    },
+    {
+        id: 4,
+        nombre: "café irlandes",
+        costo: 150,
+        conAlcohol: true
+    },
+    {
+        id: 5,
+        nombre: "white russian.",
+        costo: 250,
+        conAlcohol: true
+    },
+    {
+        id: 6,
+        nombre: "cosmopolitan",
+        costo: 500,
+        conAlcohol: true
+    },
+];
 
-    if (presupuesto >= 100) {
-        /* alert(`su saldo disponible es de ${presupuesto}`) */
-        saldoSuficiente = true;
-    } else if (presupuesto < 100) {
-        alert(`El presupuesto minimo es de $100, muchas gracias vuelva pronto`)
-        saldoSuficiente = false;
-    } else if (isNaN(presupuesto)) {
-        alert("Su presupuesto debe ir en digitos")
-        presupuesto = null;
-        presupuesto = parseInt(prompt("Bienvenido a drinkles, por favor ingrese su presupuesto"));
-        comprobarPresupuesto()
+class Trago {
+    constructor(id, nombre, costo, conAlcohol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.costo = costo;
+        this.conAlcohol = conAlcohol;
     }
-
 }
 
-function saldo() {
-    if (opcionTrago == 1) {
-        if (presupuesto >= 100) {
-            presupuesto = presupuesto - 100
-        } else {
-            alert("saldo insuficiente")
-        }
-    } else if (opcionTrago == 2) {
-        if (presupuesto >= 150) {
-            presupuesto = presupuesto - 150
-        } else {
-            alert("saldo insuficiente")
-        }
-    } else if (opcionTrago == 3) {
+let opcionElegida = parseInt(prompt(`Bienvenido a Drinkles, por favor indique una opción:
+    
+    1. Mostrar todos los cocteles.
+    2. Mostrar cocteles con alcohol.
+    3. Mostrar cocteles sin alcohol.
+    4. Buscar coctel por nombre.
+    5. Buscar coctel por costo.
+    6. Agregar un coctel.
 
-        if (presupuesto >= 200) {
-            presupuesto = presupuesto - 200
-        } else {
-            alert("saldo insuficiente")
-        }
+    Para salir, presione 0.`))
 
-    } else if (opcionTrago == 0) {
-        alert("Muchas gracias, vuelva pronto");
+do {
+    switch (opcionElegida) {
+        case 0:
+            alert("Gracias, vuelva pronto");
+            break;
+        case 1:
+            console.log(listaDeTragos);
+            alert("Los cocteles se mostrarán en la consola")
+            deseaContinuar()
+            break;
+        case 2:
+            conAlcohol(true);
+            deseaContinuar();
+            break;
+        case 3:
+            conAlcohol(false);
+            deseaContinuar();
+            break;
+        case 4:
+            buscarNombre();
+            deseaContinuar()
+            break;
+        case 5:
+            coctelPorPrecio();
+            break;
+        case 6:
+            agregarcoctel();
+            console.log(listaDeTragos);
+            deseaContinuar();
+            break;
 
-    } else {
-        alert("Por favor indique una opción valida")
+        default:
+            alert("Por favor indique una opción valida");
+            opcionElegida = parseInt(prompt(`Bienvenido a Drinkles, por favor indique una opción:
+    
+    1. Mostrar todos los cocteles.
+    2. Mostrar cocteles con alcohol.
+    3. Mostrar cocteles sin alcohol.
+    4. Buscar coctel por nombre.
+    5. Buscar coctel por costo.
+    6. Agregar un coctel.
+                
+    Para salir, presione 0.`))
+            break;
     }
-
-    return presupuesto;
-}
-
-function saldo2() {
-    if (opcionTrago == 4) {
-        if (presupuesto >= 150) {
-            presupuesto = presupuesto - 150
-        } else {
-            alert("saldo insuficiente")
-        }
-    }
-    else if (opcionTrago == 5) {
-
-        if (presupuesto >= 250) {
-            presupuesto = presupuesto - 250
-        } else {
-            alert("saldo insuficiente")
-        }
-
-    } else if (opcionTrago == 6) {
-
-        if (presupuesto >= 500) {
-            presupuesto = presupuesto - 500
-        } else {
-            alert("saldo insuficiente")
-        }
-
-    } else if (opcionTrago == 0) {
-        alert("Muchas gracias, vuelva pronto");
-
-    } else {
-        alert("Por favor indique una opción valida")
-    }
-
-    return presupuesto;
-}
-
-presupuesto = parseInt(prompt("Bienvenido a drinkles, por favor ingrese su presupuesto"));
-comprobarPresupuesto()
-
-if (saldoSuficiente == true) {
-    do {
-        alert(`su saldo disponible es de ${presupuesto}`)
-        opcionBebida = parseInt(prompt("eliga una opción por favor\n\n1. bebidas sin alcohol\n2. bebidas con alcohol\n\n0. salir"));
-
-
-        switch (opcionBebida) {
-            case 0:
-                alert("Muchas gracias, vuelva pronto");
-                break;
-            case 1:
-                opcionTrago = parseInt(prompt("eliga su bebida\n\n1.Té verde helado al estilo moruno   $100\n2.Limonada de frambuesa   $150\n3.Smoothie de mango, piña y lima   $200\n\n0. salir"))
-                saldo()
-                if (presupuesto < 100) {
-                    alert("Muchas gracias, vuelva pronto")
-                } else {
-                    let continuar = parseInt(prompt("Desea continuar comprando?\n\n1.Si, deseo agregar mas bebidas a mi compra\n2.No, así está bien"))
-                    switch (continuar) {
-                        case 2:
-                            opcionBebida = 0;
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                break;
-
-            case 2:
-                opcionTrago = parseInt(prompt("eliga su bebida\n\n4.Café irlandes   $150\n5.White russian   $250\n6.Cosmopolitan   $500\n\n0. salir"))
-                saldo2()
-                if (presupuesto < 0) {
-                    alert("Saldo insuficiente")
-
-                } else if (presupuesto < 100) {
-                    alert("Muchas gracias, vuelva pronto")
-                }
-                else {
-                    /* alert(`su saldo disponible es de ${presupuesto}`) */
-                    let continuar = parseInt(prompt("Desea continuar comprando?\n\n1.Si\n2.No"))
-                    switch (continuar) {
-                        case 2:
-                            opcionBebida = 0;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break
-
-            default:
-
-                break;
-        }
-
-    } while (presupuesto >= 100 && opcionTrago !== 0 && opcionBebida !== 0);
-}
-
-
+} while (opcionElegida != 0);
